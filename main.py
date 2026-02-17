@@ -1,11 +1,16 @@
 from typing import Optional
 from fastapi import FastAPI, Depends, HTTPException
+from fastapi.responses import RedirectResponse
 from sqlalchemy.orm import Session
 import models
 from models import Recinto, RecintoCreate, RecintoUpdate, Evento, EventoCreate, EventoUpdate
 from database import get_db
 
 app = FastAPI()
+
+@app.get("/")
+async def root():
+    return RedirectResponse(url="/docs")
 
 @app.get("/recintos")
 async def get_recintos(db: Session = Depends(get_db)):
